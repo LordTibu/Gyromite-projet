@@ -4,11 +4,11 @@ Lifapoo.class
 modele\plateau\Colonne.class
 modele\plateau\EntiteDynamique.class
 modele\deplacements\Direction.class
-modele\deplacements\Colonne.class
 modele\plateau\EntiteStatique.class
 modele\deplacements\Controle4Directions$1.class
 modele\deplacements\IA.class
 modele\plateau\Bot.class
+modele\deplacements\CColonne.class
 modele\deplacements\Gravite.class
 modele\plateau\Jeu$1.class
 modele\deplacements\Ordonnanceur.class

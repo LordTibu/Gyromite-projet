@@ -9,6 +9,7 @@ import modele.deplacements.Controle4Directions;
 import modele.deplacements.Direction;
 import modele.deplacements.Gravite;
 import modele.deplacements.Ordonnanceur;
+import modele.deplacements.CColonne;
 
 import java.awt.Point;
 import java.util.HashMap;
@@ -63,6 +64,15 @@ public class Jeu {
 
         Controle4Directions.getInstance().addEntiteDynamique(hector);
         ordonnanceur.add(Controle4Directions.getInstance());
+        
+        for (int y = 6; y > 2; y--) {
+            Colonne e = new Colonne(this);
+            addEntite(e, 10, y);
+            CColonne.getInstance().addEntiteDynamique(e);
+        }
+        CColonne.getInstance().addCol(4);
+        ordonnanceur.add( CColonne.getInstance());
+        
 
         // murs extérieurs horizontaux
         for (int x = 0; x < 20; x++) {
