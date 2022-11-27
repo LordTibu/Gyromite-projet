@@ -10,6 +10,7 @@ modele\deplacements\IA.class
 modele\plateau\Bot.class
 modele\deplacements\CColonne.class
 modele\deplacements\Gravite.class
+modele\deplacements\IA$1.class
 modele\plateau\Jeu$1.class
 modele\deplacements\Ordonnanceur.class
 VueControleur\VueControleurGyromite$1.class

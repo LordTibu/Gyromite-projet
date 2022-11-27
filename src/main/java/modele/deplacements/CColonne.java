@@ -31,11 +31,7 @@ public class CColonne extends RealisateurDeDeplacement {
         if(triggeredDown){
             for(Integer x = 0; x < colTaille.size(); x++){
                 if(tilesMoved.get(x) > 0){
-                    System.out.println("Amount of cols:"+ colTaille.size());
                     for(Integer y = sommeTailles; y < sommeTailles + colTaille.get(x); y++){
-                        System.out.println("SommeTailles:"+ sommeTailles);
-                        System.out.println("y:"+ y);
-                        System.out.println("colTaille(x):"+ colTaille.get(x));
                         ret = lstEntitesDynamiques.get(y).avancerDirectionChoisie(Direction.bas);
                     }
                     sommeTailles += colTaille.get(x);
