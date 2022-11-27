@@ -29,24 +29,30 @@ public class CColonne extends RealisateurDeDeplacement {
         Integer sommeTailles = 0;
         
         if(triggeredDown){
+            System.out.println("R key Pressed");
             for(Integer x = 0; x < colTaille.size(); x++){
                 if(tilesMoved.get(x) > 0){
                     for(Integer y = sommeTailles; y < sommeTailles + colTaille.get(x); y++){
                         ret = lstEntitesDynamiques.get(y).avancerDirectionChoisie(Direction.bas);
                     }
-                    sommeTailles += colTaille.get(x);
-                    tilesMoved.set(x, tilesMoved.get(x) - 1);
+                    if(ret){
+                        sommeTailles += colTaille.get(x);
+                        tilesMoved.set(x, tilesMoved.get(x) - 1);
+                    }
                 }
             }
         }
         else{
+            System.out.println("R.Kelly pressed Charges");
             for(Integer x = 0; x < colTaille.size(); x++){
                 if(tilesMoved.get(x) < colTaille.get(x) - 1){
                     for(Integer y = sommeTailles + colTaille.get(x) - 1; y >= sommeTailles; y--){
                         ret = lstEntitesDynamiques.get(y).avancerDirectionChoisie(Direction.haut);
                     }
-                    sommeTailles += colTaille.get(x);
-                    tilesMoved.set(x, tilesMoved.get(x) + 1);
+                    if(ret){
+                        sommeTailles += colTaille.get(x);
+                        tilesMoved.set(x, tilesMoved.get(x) + 1);
+                    }
                 }
             }
         }

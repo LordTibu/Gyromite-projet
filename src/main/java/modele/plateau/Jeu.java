@@ -66,23 +66,25 @@ public class Jeu {
         Controle4Directions.getInstance().addEntiteDynamique(hector);
         ordonnanceur.add(Controle4Directions.getInstance());
         
+        /*
         Bot gustavo = new Bot(this);
         addEntite(gustavo,7,6);
         IA ia = new IA();
         ia.addEntiteDynamique(gustavo);
         ordonnanceur.add(ia);
+        */
         
-        for (int y = 6; y > 2; y--) {
+        for (int y = 6; y > 3; y--) {
             Colonne e = new Colonne(this);
             addEntite(e, 10, y);
             CColonne.getInstance().addEntiteDynamique(e);
         }
-        CColonne.getInstance().addCol(4);
+        CColonne.getInstance().addCol(3);
         ordonnanceur.add( CColonne.getInstance());
         
-        for (int x = 5; x < 12; x++) {
+        /*for (int x = 5; x < 12; x++) {
             addEntite(new Mur(this), x, 7);
-        }
+        }*/
         
         // murs extérieurs horizontaux
         for (int x = 0; x < 20; x++) {
