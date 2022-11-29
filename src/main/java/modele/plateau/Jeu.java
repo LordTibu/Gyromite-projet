@@ -11,6 +11,7 @@ import modele.deplacements.Gravite;
 import modele.deplacements.Ordonnanceur;
 import modele.deplacements.CColonne;
 import modele.deplacements.IA;
+import modele.deplacements.CCorde;
 
 import java.awt.Point;
 import java.util.HashMap;
@@ -82,20 +83,25 @@ public class Jeu {
         CColonne.getInstance().addCol(3);
         ordonnanceur.add( CColonne.getInstance());
         
+        for (int y = 8; y > 5; y--) {
+            addEntite(new Corde(this), 13, y );
+        }
+
+       
         /*for (int x = 5; x < 12; x++) {
             addEntite(new Mur(this), x, 7);
         }*/
         
         // murs extérieurs horizontaux
-        for (int x = 0; x < 20; x++) {
+        for (int x = 0; x < SIZE_X; x++) {
             addEntite(new Mur(this), x, 0);
-            addEntite(new Mur(this), x, 9);
+            addEntite(new Mur(this), x, SIZE_Y-1);
         }
 
         // murs extérieurs verticaux
-        for (int y = 1; y < 9; y++) {
+        for (int y = 1; y < SIZE_Y-1; y++) {
             addEntite(new Mur(this), 0, y);
-            addEntite(new Mur(this), 19, y);
+            addEntite(new Mur(this), SIZE_X-1, y);
         }
 
         addEntite(new Mur(this), 2, 6);
@@ -120,12 +126,11 @@ public class Jeu {
      */
     public boolean deplacerEntite(Entite e, Direction d) {
         boolean retour = false;
-        
         Point pCourant = map.get(e);
-        
+       
         Point pCible = calculerPointCible(pCourant, d);
         
-        if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null) { // a adapter (collisions murs, etc.)
+        if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null  ) { // a adapter (collisions murs, etc.)
             // compter le déplacement : 1 deplacement horizontal et vertical max par pas de temps par entité
             switch (d) {
                 case bas:
@@ -163,7 +168,6 @@ public class Jeu {
             case bas : pCible = new Point(pCourant.x, pCourant.y + 1); break;
             case gauche : pCible = new Point(pCourant.x - 1, pCourant.y); break;
             case droite : pCible = new Point(pCourant.x + 1, pCourant.y); break;     
-            
         }
         
         return pCible;
