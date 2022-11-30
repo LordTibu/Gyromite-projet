@@ -133,58 +133,58 @@ public class Jeu {
          
         
         switch(d){
-        case bas:
-        case haut:
-            //S'il y a pas d'objet dans la direction de l'entite e, e peut avancer 
-            if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null ) {
-                if (cmptDeplV.get(e) == null) {
-                            cmptDeplV.put(e, 1);
-
-                            retour = true;
-                        }
-                        break;
-            }else if(objetALaPosition(pCible) != null){ //Choca con algo
-                if(objetALaPosition(pCible) instanceof Corde){//Choca con la cuerda
-                    System.out.println("obstaculo cuerda");
+            case bas:
+            case haut:
+                //S'il y a pas d'objet dans la direction de l'entite e, e peut avancer 
+                if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null ) {
                     if (cmptDeplV.get(e) == null) {
-                            cmptDeplV.put(e, 1);
-                            SuperEntite pp = new SuperEntite (this);
-                            map.put(e,pCible);
-                            pp.staticEnt = objetALaPosition(pCible);
-                            pp.dynaEnt = e;
-                            e = pp;
-                            retour = true;
-                        }
-                        break;
-                }
-            }
-        case gauche:
-        case droite:
-            //S'il y a pas d'objet dans la direction de l'entite e, e peut avancer 
-            if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null ) {
-                if (cmptDeplH.get(e) == null) {
-                        cmptDeplH.put(e, 1);
-                       
-                        retour = true;
-                        
+                                cmptDeplV.put(e, 1);
+
+                                retour = true;
+                            }
+                            break;
+                }else if(objetALaPosition(pCible) != null){ //Choca con algo
+                    if(objetALaPosition(pCible) instanceof Corde){//Choca con la cuerda
+                        System.out.println("obstaculo cuerda");
+                        if (cmptDeplV.get(e) == null) {
+                                cmptDeplV.put(e, 1);
+                                SuperEntite pp = new SuperEntite (this);
+                                map.put(e,pCible);
+                                pp.staticEnt = objetALaPosition(pCible);
+                                pp.dynaEnt = e;
+                                e = pp;
+                                retour = true;
+                            }
+                            break;
                     }
-                    break;
-            }else if(objetALaPosition(pCible) != null){ //Choca con algo
-                if(objetALaPosition(pCible) instanceof Corde){//Choca con la cuerda
-                    System.out.println("obstaculo cuerda");
+                }
+            case gauche:
+            case droite:
+                //S'il y a pas d'objet dans la direction de l'entite e, e peut avancer 
+                if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null ) {
                     if (cmptDeplH.get(e) == null) {
                             cmptDeplH.put(e, 1);
-                            SuperEntite pp = new SuperEntite (this);
-                            map.put(e,pCible);
-                            pp.staticEnt = objetALaPosition(pCible);
-                            pp.dynaEnt = e;
-                            e = pp;
+
                             retour = true;
 
                         }
                         break;
+                }else if(objetALaPosition(pCible) != null){ //Choca con algo
+                    if(objetALaPosition(pCible) instanceof Corde){//Choca con la cuerda
+                        System.out.println("obstaculo cuerda");
+                        if (cmptDeplH.get(e) == null) {
+                                cmptDeplH.put(e, 1);
+                                SuperEntite pp = new SuperEntite (this);
+                                map.put(e,pCible);
+                                pp.staticEnt = objetALaPosition(pCible);
+                                pp.dynaEnt = e;
+                                e = pp;
+                                retour = true;
+
+                            }
+                            break;
+                    }
                 }
-            }
         
     }
         
@@ -241,5 +241,17 @@ public class Jeu {
 
     public Ordonnanceur getOrdonnanceur() {
         return ordonnanceur;
+    }
+    
+    public void matar(Entite e){
+        Point p = map.get(e);
+        //System.out.println("El punto es: " + p.x + " " + p.y );
+        if(e instanceof Heros){
+            //tratamiento para gameOver
+            grilleEntites[p.x][p.y] = null;
+        }
+        else{
+            grilleEntites[p.x][p.y] = null;
+        }
     }
 }
