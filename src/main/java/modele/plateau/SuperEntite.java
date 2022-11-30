@@ -1,7 +1,7 @@
 package modele.plateau;
 public class SuperEntite extends EntiteDynamique{
-    private Entite staticEnt = null;
-    private Entite dynaEnt = null;
+    protected Entite staticEnt = null;
+    protected Entite dynaEnt = null;
     
     public SuperEntite(Jeu _jeu) { super(_jeu); }
     
