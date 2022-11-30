@@ -66,13 +66,13 @@ public class Jeu {
         Controle4Directions.getInstance().addEntiteDynamique(hector);
         ordonnanceur.add(Controle4Directions.getInstance());
         
-        /*
+        
         Bot gustavo = new Bot(this);
-        addEntite(gustavo,7,6);
+        addEntite(gustavo,5,8);
         IA ia = new IA();
         ia.addEntiteDynamique(gustavo);
         ordonnanceur.add(ia);
-        */
+        
         
         for (int y = 6; y > 3; y--) {
             Colonne e = new Colonne(this);
@@ -106,6 +106,8 @@ public class Jeu {
 
         addEntite(new Mur(this), 2, 6);
         addEntite(new Mur(this), 3, 6);
+        addEntite(new Mur(this), 14, 8);
+        addEntite(new Mur(this), 14, 7);
         addEntite(new Mur(this), 4, SIZE_Y-2);
     }
 
@@ -150,8 +152,8 @@ public class Jeu {
                                 cmptDeplV.put(e, 1);
                                 SuperEntite pp = new SuperEntite (this);
                                 map.put(e,pCible);
-                                pp.staticEnt = objetALaPosition(pCible);
-                                pp.dynaEnt = e;
+                                pp.setStaticEnt(objetALaPosition(pCible));
+                                pp.setDynaEnt(e);
                                 e = pp;
                                 retour = true;
                             }
@@ -176,8 +178,8 @@ public class Jeu {
                                 cmptDeplH.put(e, 1);
                                 SuperEntite pp = new SuperEntite (this);
                                 map.put(e,pCible);
-                                pp.staticEnt = objetALaPosition(pCible);
-                                pp.dynaEnt = e;
+                                pp.setStaticEnt(objetALaPosition(pCible));
+                                pp.setDynaEnt(e);
                                 e = pp;
                                 retour = true;
 
@@ -212,7 +214,7 @@ public class Jeu {
     private void deplacerEntite(Point pCourant, Point pCible, Entite e) {
         if(objetALaPosition(pCourant) instanceof SuperEntite){
             SuperEntite spo = (SuperEntite)objetALaPosition(pCourant);
-            grilleEntites[pCourant.x][pCourant.y] = spo.staticEnt;
+            grilleEntites[pCourant.x][pCourant.y] = spo.getStaticEnt();
             spo = null;
             
             System.out.println("se esta detectando");

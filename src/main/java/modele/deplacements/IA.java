@@ -2,6 +2,7 @@ package modele.deplacements;
 
 import modele.plateau.Entite;
 import modele.plateau.Mur;
+import modele.plateau.Bot;
 import modele.plateau.Heros;
 import modele.plateau.Colonne;
 import modele.plateau.Bot;
@@ -29,7 +30,7 @@ public class IA extends RealisateurDeDeplacement {
             case gauche:
                 tmp = e.regarderDansLaDirection(d);
                 if(tmp != null){
-                    if(tmp.peutServirDeSupport()) return false;
+                    if(tmp instanceof Mur || tmp instanceof Bot) return false;
                 } //Colission avec Mur
                 tmp = e.regarderDansLaDirection(Direction.bas);
                 if(tmp instanceof Mur){
