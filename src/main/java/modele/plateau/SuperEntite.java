@@ -14,8 +14,7 @@ public class SuperEntite extends EntiteDynamique{
     public boolean peutPermettreDeMonterDescendre() { 
         return getStaticEnt().peutPermettreDeMonterDescendre()||getDynaEnt().peutPermettreDeMonterDescendre() ; 
     };
-<<<<<<< HEAD
-=======
+
    
     
     public void couple(){
@@ -25,7 +24,7 @@ public class SuperEntite extends EntiteDynamique{
     public void decouple(){
         
     }
->>>>>>> b159be5e1c66cb20b37cff675041e18dbc0fcd45
+
 
     /**
      * @return the staticEnt
