@@ -11,7 +11,6 @@ import modele.deplacements.Gravite;
 import modele.deplacements.Ordonnanceur;
 import modele.deplacements.CColonne;
 import modele.deplacements.IA;
-import modele.deplacements.CCorde;
 
 import java.awt.Point;
 import java.util.HashMap;
@@ -83,7 +82,9 @@ public class Jeu {
         CColonne.getInstance().addCol(3);
         ordonnanceur.add( CColonne.getInstance());
         
+        //CoRDE
         for (int y = 8; y > 5; y--) {
+            
             addEntite(new Corde(this), 13, y );
         }
 
@@ -130,14 +131,14 @@ public class Jeu {
        
         Point pCible = calculerPointCible(pCourant, d);
         
-        if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null  ) { // a adapter (collisions murs, etc.)
+        if (contenuDansGrille(pCible) && (objetALaPosition(pCible) == null || objetALaPosition(pCible) instanceof Corde)) { // a adapter (collisions murs, etc.)
             // compter le déplacement : 1 deplacement horizontal et vertical max par pas de temps par entité
             switch (d) {
                 case bas:
                 case haut:
                     if (cmptDeplV.get(e) == null) {
                         cmptDeplV.put(e, 1);
-
+     
                         retour = true;
                     }
                     break;
@@ -145,12 +146,15 @@ public class Jeu {
                 case droite:
                     if (cmptDeplH.get(e) == null) {
                         cmptDeplH.put(e, 1);
+                        if(objetALaPosition(pCible) instanceof Corde){
+                            pCible=new Point(pCourant.x, pCourant.y -2); 
+                        }
                         retour = true;
 
                     }
                     break;
             }
-        }
+        } 
 
         if (retour) {
             deplacerEntite(pCourant, pCible, e);

@@ -15,7 +15,7 @@ import javax.swing.*;
 
 import modele.deplacements.Controle4Directions;
 import modele.deplacements.CColonne;
-import modele.deplacements.CCorde;
+
 import modele.deplacements.Direction;
 import modele.plateau.*;
 
