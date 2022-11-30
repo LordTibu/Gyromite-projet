@@ -266,4 +266,16 @@ public class Jeu {
     public Ordonnanceur getOrdonnanceur() {
         return ordonnanceur;
     }
+    
+    public void matar(Entite e){
+        Point p = map.get(e);
+        //System.out.println("El punto es: " + p.x + " " + p.y );
+        if(e instanceof Heros){
+            //tratamiento para gameOver
+            grilleEntites[p.x][p.y] = null;
+        }
+        else{
+            grilleEntites[p.x][p.y] = null;
+        }
+    }
 }

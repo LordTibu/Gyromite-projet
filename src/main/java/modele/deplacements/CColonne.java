@@ -2,6 +2,7 @@ package modele.deplacements;
 
 import modele.plateau.Entite;
 import modele.plateau.EntiteDynamique;
+import modele.plateau.Mur;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -28,25 +29,35 @@ public class CColonne extends RealisateurDeDeplacement {
         boolean ret = false;
         Integer sommeTailles = 0;
         
-        if(triggeredDown){
-            //System.out.println("R key Pressed");
+        if(triggeredDown){ // We go down
             for(Integer x = 0; x < colTaille.size(); x++){
                 if(tilesMoved.get(x) > 0){
                     for(Integer y = sommeTailles; y < sommeTailles + colTaille.get(x); y++){
+                        Entite e = lstEntitesDynamiques.get(y).regarderDansLaDirection(Direction.bas);
+                        if(e != null && e.peutEtreEcrase()){
+                            if(((EntiteDynamique)e).regarderDansLaDirection(Direction.bas) instanceof Mur){
+                                e.matar();
+                                System.out.println("intento de homicidio");
+                            }
+                        }
                         ret = lstEntitesDynamiques.get(y).avancerDirectionChoisie(Direction.bas);
                     }
-                    if(ret){
+                    if(ret){ // If not blocked by any walls
                         sommeTailles += colTaille.get(x);
                         tilesMoved.set(x, tilesMoved.get(x) - 1);
                     }
                 }
             }
         }
-        else{
-            //System.out.println("R.Kelly pressed Charges");
+        else{ // We go up
             for(Integer x = 0; x < colTaille.size(); x++){
                 if(tilesMoved.get(x) < colTaille.get(x) - 1){
                     for(Integer y = sommeTailles + colTaille.get(x) - 1; y >= sommeTailles; y--){
+                        Entite e = lstEntitesDynamiques.get(y).regarderDansLaDirection(Direction.haut);
+                        if(e != null && e.peutEtreEcrase()){
+                            if(((EntiteDynamique)e).regarderDansLaDirection(Direction.haut) instanceof Mur)
+                            e.matar();
+                        }
                         ret = lstEntitesDynamiques.get(y).avancerDirectionChoisie(Direction.haut);
                     }
                     if(ret){
