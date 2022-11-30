@@ -33,6 +33,8 @@ public class Jeu {
     private Entite[][] grilleEntites = new Entite[SIZE_X][SIZE_Y]; // permet de récupérer une entité à partir de ses coordonnées
 
     private Ordonnanceur ordonnanceur = new Ordonnanceur(this);
+    
+    private Integer cmptBombes = 0; 
 
     public Jeu() {
         initialisationDesEntites();
@@ -105,8 +107,10 @@ public class Jeu {
         }
 
         addEntite(new Mur(this), 2, 6);
+        addEntite(new Bombe(this), 4, 7);
+        addEntite(new Bombe(this), 1, 7);
         addEntite(new Mur(this), 3, 6);
-        addEntite(new Mur(this), 4, SIZE_Y-2);
+        
     }
 
     private void addEntite(Entite e, int x, int y) {
@@ -145,18 +149,27 @@ public class Jeu {
                         break;
             }else if(objetALaPosition(pCible) != null){ //Choca con algo
                 if(objetALaPosition(pCible) instanceof Corde){//Choca con la cuerda
-                    System.out.println("obstaculo cuerda");
                     if (cmptDeplV.get(e) == null) {
                             cmptDeplV.put(e, 1);
                             SuperEntite pp = new SuperEntite (this);
                             map.put(e,pCible);
-                            pp.staticEnt = objetALaPosition(pCible);
-                            pp.dynaEnt = e;
+                            pp.setStaticEnt(objetALaPosition(pCible));
+                            pp.setDynaEnt(e);
                             e = pp;
                             retour = true;
                         }
-                        break;
+                        
+                }else if(objetALaPosition(pCible) instanceof Bombe){ //Choca con bomba
+                    System.out.println("obstaculo bomba");
+                    if (cmptDeplV.get(e) == null) {
+                            cmptDeplV.put(e, 1);
+                            
+                            cmptBombes ++;
+                            retour = true;
+                        }
+                    System.out.println(cmptBombes);
                 }
+                break;
             }
         case gauche:
         case droite:
@@ -165,25 +178,36 @@ public class Jeu {
                 if (cmptDeplH.get(e) == null) {
                         cmptDeplH.put(e, 1);
                        
+                        
                         retour = true;
                         
                     }
                     break;
             }else if(objetALaPosition(pCible) != null){ //Choca con algo
                 if(objetALaPosition(pCible) instanceof Corde){//Choca con la cuerda
-                    System.out.println("obstaculo cuerda");
                     if (cmptDeplH.get(e) == null) {
                             cmptDeplH.put(e, 1);
                             SuperEntite pp = new SuperEntite (this);
                             map.put(e,pCible);
-                            pp.staticEnt = objetALaPosition(pCible);
-                            pp.dynaEnt = e;
+                            pp.setStaticEnt(objetALaPosition(pCible));
+                            pp.setDynaEnt(e);
                             e = pp;
                             retour = true;
-
+                            
                         }
-                        break;
-                }
+                       
+                }else if(objetALaPosition(pCible) instanceof Bombe){ //Choca con bomba
+                    System.out.println("obstaculo bomba");
+                    if (cmptDeplH.get(e) == null) {
+                        cmptDeplH.put(e, 1);
+                        
+                        cmptBombes ++;
+                        retour = true;
+                        
+                    }
+                    System.out.println(cmptBombes);
+                } 
+                break;
             }
         
     }
@@ -212,7 +236,7 @@ public class Jeu {
     private void deplacerEntite(Point pCourant, Point pCible, Entite e) {
         if(objetALaPosition(pCourant) instanceof SuperEntite){
             SuperEntite spo = (SuperEntite)objetALaPosition(pCourant);
-            grilleEntites[pCourant.x][pCourant.y] = spo.staticEnt;
+            grilleEntites[pCourant.x][pCourant.y] = spo.getStaticEnt();
             spo = null;
             
             System.out.println("se esta detectando");
