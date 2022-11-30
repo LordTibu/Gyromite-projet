@@ -153,19 +153,37 @@ public class Jeu {
                     }
                     break;
             }
-        }else if(objetALaPosition(pCible) != null){ //Choca con algo
-            
+        }
+        else if(objetALaPosition(pCible) != null){ //Choca con algo
             if(objetALaPosition(pCible) instanceof Corde){//Choca con la cuerda
                 System.out.println("obstaculo cuerda");
-                SuperEntite pp = new SuperEntite (this);
-                
-                map.put(e,pCible);
-                pp.staticEnt = objetALaPosition(pCible);
-                pp.dynaEnt = e;
-                e = pp;
-                
-               
-                retour = true ;
+                switch (d) {
+                    case bas:
+                    case haut:
+                        if (cmptDeplV.get(e) == null) {
+                            cmptDeplV.put(e, 1);
+                            SuperEntite pp = new SuperEntite (this);
+                            map.put(e,pCible);
+                            pp.staticEnt = objetALaPosition(pCible);
+                            pp.dynaEnt = e;
+                            e = pp;
+                            retour = true;
+                        }
+                        break;
+                    case gauche:
+                    case droite:
+                        if (cmptDeplH.get(e) == null) {
+                            cmptDeplH.put(e, 1);
+                            SuperEntite pp = new SuperEntite (this);
+                            map.put(e,pCible);
+                            pp.staticEnt = objetALaPosition(pCible);
+                            pp.dynaEnt = e;
+                            e = pp;
+                            retour = true;
+
+                        }
+                        break;
+                }
             }
             
         } 
@@ -195,17 +213,14 @@ public class Jeu {
         if(objetALaPosition(pCourant) instanceof SuperEntite){
             SuperEntite spo = (SuperEntite)objetALaPosition(pCourant);
             grilleEntites[pCourant.x][pCourant.y] = spo.staticEnt;
-            grilleEntites[pCible.x][pCible.y] = spo.dynaEnt;
-            map.put(spo.staticEnt,pCourant);
-            map.put(spo.dynaEnt,pCible);
             spo = null;
             
             System.out.println("se esta detectando");
         }else {
             grilleEntites[pCourant.x][pCourant.y] = null;
-            grilleEntites[pCible.x][pCible.y] = e;
-            map.put(e, pCible);
         }
+        grilleEntites[pCible.x][pCible.y] = e;
+        map.put(e, pCible);
     }
     
     /** Indique si p est contenu dans la grille

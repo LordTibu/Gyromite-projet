@@ -5,9 +5,15 @@ public class SuperEntite extends EntiteDynamique{
     
     public SuperEntite(Jeu _jeu) { super(_jeu); }
     
-    public boolean peutEtreEcrase() { return false; }
-    public boolean peutServirDeSupport() { return false; }
-    public boolean peutPermettreDeMonterDescendre() { return false; };
+    public boolean peutEtreEcrase() { 
+        return staticEnt.peutEtreEcrase()&&dynaEnt.peutEtreEcrase() ; 
+    }
+    public boolean peutServirDeSupport() { 
+        return staticEnt.peutServirDeSupport()||dynaEnt.peutServirDeSupport() ;
+    }
+    public boolean peutPermettreDeMonterDescendre() { 
+        return staticEnt.peutPermettreDeMonterDescendre()||dynaEnt.peutPermettreDeMonterDescendre() ; 
+    };
    
     
     public void couple(){
