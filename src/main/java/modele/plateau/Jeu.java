@@ -131,36 +131,22 @@ public class Jeu {
        
         Point pCible = calculerPointCible(pCourant, d);
          
-        //S'il y a pas d'objet dans la direction de l'entite e, e peut avancer 
-        if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null ) { // a adapter (collisions murs, etc.)
-            // compter le déplacement : 1 deplacement horizontal et vertical max par pas de temps par entité
-            switch (d) {
-                case bas:
-                case haut:
-                    if (cmptDeplV.get(e) == null) {
-                        cmptDeplV.put(e, 1);
-                        
-                        retour = true;
-                    }
-                    break;
-                case gauche:
-                case droite:
-                    if (cmptDeplH.get(e) == null) {
-                        cmptDeplH.put(e, 1);
-                       
-                        retour = true;
+        
+        switch(d){
+        case bas:
+        case haut:
+            //S'il y a pas d'objet dans la direction de l'entite e, e peut avancer 
+            if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null ) {
+                if (cmptDeplV.get(e) == null) {
+                            cmptDeplV.put(e, 1);
 
-                    }
-                    break;
-            }
-        }
-        else if(objetALaPosition(pCible) != null){ //Choca con algo
-            if(objetALaPosition(pCible) instanceof Corde){//Choca con la cuerda
-                System.out.println("obstaculo cuerda");
-                switch (d) {
-                    case bas:
-                    case haut:
-                        if (cmptDeplV.get(e) == null) {
+                            retour = true;
+                        }
+                        break;
+            }else if(objetALaPosition(pCible) != null){ //Choca con algo
+                if(objetALaPosition(pCible) instanceof Corde){//Choca con la cuerda
+                    System.out.println("obstaculo cuerda");
+                    if (cmptDeplV.get(e) == null) {
                             cmptDeplV.put(e, 1);
                             SuperEntite pp = new SuperEntite (this);
                             map.put(e,pCible);
@@ -170,9 +156,23 @@ public class Jeu {
                             retour = true;
                         }
                         break;
-                    case gauche:
-                    case droite:
-                        if (cmptDeplH.get(e) == null) {
+                }
+            }
+        case gauche:
+        case droite:
+            //S'il y a pas d'objet dans la direction de l'entite e, e peut avancer 
+            if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null ) {
+                if (cmptDeplH.get(e) == null) {
+                        cmptDeplH.put(e, 1);
+                       
+                        retour = true;
+                        
+                    }
+                    break;
+            }else if(objetALaPosition(pCible) != null){ //Choca con algo
+                if(objetALaPosition(pCible) instanceof Corde){//Choca con la cuerda
+                    System.out.println("obstaculo cuerda");
+                    if (cmptDeplH.get(e) == null) {
                             cmptDeplH.put(e, 1);
                             SuperEntite pp = new SuperEntite (this);
                             map.put(e,pCible);
@@ -185,9 +185,9 @@ public class Jeu {
                         break;
                 }
             }
-            
-        } 
-
+        
+    }
+        
         if (retour) {
             deplacerEntite(pCourant, pCible, e);
         }
