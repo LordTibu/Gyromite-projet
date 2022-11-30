@@ -68,13 +68,13 @@ public class Jeu {
         Controle4Directions.getInstance().addEntiteDynamique(hector);
         ordonnanceur.add(Controle4Directions.getInstance());
         
-        
+        /*
         Bot gustavo = new Bot(this);
         addEntite(gustavo,5,8);
         IA ia = new IA();
         ia.addEntiteDynamique(gustavo);
         ordonnanceur.add(ia);
-        
+        */
         
         for (int y = 6; y > 3; y--) {
             Colonne e = new Colonne(this);
