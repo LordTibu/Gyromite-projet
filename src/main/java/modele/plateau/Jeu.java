@@ -84,7 +84,6 @@ public class Jeu {
         
         //CoRDE
         for (int y = 8; y > 5; y--) {
-            
             addEntite(new Corde(this), 13, y );
         }
 
@@ -107,6 +106,7 @@ public class Jeu {
 
         addEntite(new Mur(this), 2, 6);
         addEntite(new Mur(this), 3, 6);
+        addEntite(new Mur(this), 4, SIZE_Y-2);
     }
 
     private void addEntite(Entite e, int x, int y) {
@@ -130,15 +130,16 @@ public class Jeu {
         Point pCourant = map.get(e);
        
         Point pCible = calculerPointCible(pCourant, d);
-        
-        if (contenuDansGrille(pCible) && (objetALaPosition(pCible) == null || objetALaPosition(pCible) instanceof Corde)) { // a adapter (collisions murs, etc.)
+         
+        //S'il y a pas d'objet dans la direction de l'entite e, e peut avancer 
+        if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null ) { // a adapter (collisions murs, etc.)
             // compter le déplacement : 1 deplacement horizontal et vertical max par pas de temps par entité
             switch (d) {
                 case bas:
                 case haut:
                     if (cmptDeplV.get(e) == null) {
                         cmptDeplV.put(e, 1);
-     
+                        
                         retour = true;
                     }
                     break;
@@ -146,14 +147,27 @@ public class Jeu {
                 case droite:
                     if (cmptDeplH.get(e) == null) {
                         cmptDeplH.put(e, 1);
-                        if(objetALaPosition(pCible) instanceof Corde){
-                            pCible=new Point(pCourant.x, pCourant.y -2); 
-                        }
+                       
                         retour = true;
 
                     }
                     break;
             }
+        }else if(objetALaPosition(pCible) != null){ //Choca con algo
+            
+            if(objetALaPosition(pCible) instanceof Corde){//Choca con la cuerda
+                System.out.println("obstaculo cuerda");
+                SuperEntite pp = new SuperEntite (this);
+                
+                map.put(e,pCible);
+                pp.staticEnt = objetALaPosition(pCible);
+                pp.dynaEnt = e;
+                e = pp;
+                
+               
+                retour = true ;
+            }
+            
         } 
 
         if (retour) {
@@ -178,9 +192,20 @@ public class Jeu {
     }
     
     private void deplacerEntite(Point pCourant, Point pCible, Entite e) {
-        grilleEntites[pCourant.x][pCourant.y] = null;
-        grilleEntites[pCible.x][pCible.y] = e;
-        map.put(e, pCible);
+        if(objetALaPosition(pCourant) instanceof SuperEntite){
+            SuperEntite spo = (SuperEntite)objetALaPosition(pCourant);
+            grilleEntites[pCourant.x][pCourant.y] = spo.staticEnt;
+            grilleEntites[pCible.x][pCible.y] = spo.dynaEnt;
+            map.put(spo.staticEnt,pCourant);
+            map.put(spo.dynaEnt,pCible);
+            spo = null;
+            
+            System.out.println("se esta detectando");
+        }else {
+            grilleEntites[pCourant.x][pCourant.y] = null;
+            grilleEntites[pCible.x][pCible.y] = e;
+            map.put(e, pCible);
+        }
     }
     
     /** Indique si p est contenu dans la grille
