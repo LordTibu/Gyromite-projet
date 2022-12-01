@@ -32,14 +32,18 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private int sizeY;
 
     // icones affichées dans la grille
-    private ImageIcon icoHero;
-    private ImageIcon icoBot;
-    private ImageIcon icoVide;
-    private ImageIcon icoMur;
-    private ImageIcon icoColonne;
-    private ImageIcon icoCorde;
-    private ImageIcon icoHeroCorde;
-    private ImageIcon icoBombe;
+    private AlphaIcon icoHero;
+    private AlphaIcon icoBot;
+    private AlphaIcon icoVide;
+    private AlphaIcon icoMur;
+    private AlphaIcon icoMur2;
+    private AlphaIcon icoPlataform;
+    private AlphaIcon icoColonne;
+    private AlphaIcon icoCorde;
+    private AlphaIcon icoHeroCorde;
+    private AlphaIcon icoBotCorde;
+    private AlphaIcon icoBombe;
+    private ImageIcon icoTest;
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
 
@@ -72,22 +76,25 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
 
     private void chargerLesIcones() {
-        icoHero = chargerIcone("Images/player_ca.png", 0, 0, 35, 40);
-        icoBot = chargerIcone("Images/smick_ca.png", 0, 0, 20, 20);
-
-        icoVide = chargerIcone("Images/Mur.png");
-        icoColonne = chargerIcone("Images/Colonne.png");
-        icoMur = chargerIcone("Images/tileset.png",32,1,16,16);
-        icoCorde = chargerIcone("Images/tileset.png",20,1,10,16);
-        icoHeroCorde= chargerIcone("Images/player_ca.png", 0, 88, 35, 40);
-        icoBombe = chargerIcone("Images/bomb_ca.png",83,0,26,48);
+        icoHero = new AlphaIcon(chargerIcone("Images/player_ca.png", 0, 0, 35, 40),1.0f);
+        icoBot = new AlphaIcon(chargerIcone("Images/smick_ca.png", 35, 3, 26, 28),1.0f);
+        
+        icoTest = chargerIcone("Images/Vide.png");
+        icoVide = new AlphaIcon(chargerIcone("Images/Mur.png"),1.0f);
+        icoColonne = new AlphaIcon(chargerIcone("Images/Colonne.png"),1.0f);
+        icoMur = new AlphaIcon(chargerIcone("Images/tileset.png",32,1,16,16),1.0f);
+        icoMur2 = new AlphaIcon(chargerIcone("Images/tileset.png",0,16,16,16),1.0f);
+        icoCorde = new AlphaIcon(chargerIcone("Images/tileset.png",20,2,10,14),1.0f);
+        icoHeroCorde = new AlphaIcon(chargerIcone("Images/player_ca.png", 0, 88, 35, 40),1.0f);
+        icoBotCorde = new AlphaIcon(chargerIcone("Images/smick_ca.png", 96, 66, 31, 30),1.0f);
+        icoBombe = new AlphaIcon(chargerIcone("Images/bomb_ca.png",83,0,26,48),1.0f);
+        icoPlataform = new AlphaIcon(chargerIcone("Images/tileset.png",0,1,16,16),1.0f);
     }
 
     private void placerLesComposantsGraphiques() {
         setTitle("Gyromite");
         setSize(400, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
-
         JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
 
         tabJLabel = new JLabel[sizeX][sizeY];
@@ -103,40 +110,44 @@ public class VueControleurGyromite extends JFrame implements Observer {
         add(grilleJLabels);
     }
 
+  
     
     /**
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
     private void mettreAJourAffichage() {
-
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
-                if (jeu.getGrille()[x][y] instanceof Heros) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue
-
-                    tabJLabel[x][y].setIcon(icoHero);
-
-                    // si transparence : images avec canal alpha + dessins manuels (voir ci-dessous + créer composant qui redéfinie paint(Graphics g)), se documenter
-                    //BufferedImage bi = getImage("Images/smick.png", 0, 0, 20, 20);
-                    //tabJLabel[x][y].getGraphics().drawImage(bi, 0, 0, null);
-
+                if (jeu.getGrille()[x][y] instanceof Heros) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue     
+                    icoHero.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                 } else if (jeu.getGrille()[x][y] instanceof Bot) {
-                    tabJLabel[x][y].setIcon(icoBot);
+                    icoBot.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                 } else if (jeu.getGrille()[x][y] instanceof Mur) {
-                    tabJLabel[x][y].setIcon(icoMur);
+                    if(x > 0 && x < sizeX-1 && y > 0 && y < sizeY-1){
+                        tabJLabel[x][y].setIcon(icoPlataform);
+                    } else if (x == 0 || x ==sizeX-1) {
+                        tabJLabel[x][y].setIcon(icoMur2);
+                    } else{
+                        tabJLabel[x][y].setIcon(icoMur);
+                    }
                 } else if (jeu.getGrille()[x][y] instanceof Colonne) {
                     tabJLabel[x][y].setIcon(icoColonne);
                 } else if (jeu.getGrille()[x][y] instanceof Corde){
-                    tabJLabel[x][y].setIcon(icoCorde);
+                    icoCorde.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                 } else if (jeu.getGrille()[x][y] instanceof Bombe){
-                    tabJLabel[x][y].setIcon(icoBombe);
+                    tabJLabel[x][y].setIcon(icoVide);
+                    icoBombe.paintIcon(null, tabJLabel[x][y].getGraphics(), 0, 0);
                 } else if (jeu.getGrille()[x][y] instanceof SuperEntite){
                     SuperEntite spo = (SuperEntite)jeu.getGrille()[x][y];
                     if(spo.getStaticEnt() instanceof Corde && spo.getDynaEnt() instanceof Heros){
-                        tabJLabel[x][y].setIcon(icoHeroCorde);
+                        icoHeroCorde.paintIcon(null, tabJLabel[x][y].getGraphics(), 0, 0);
+                    } else if(spo.getStaticEnt() instanceof Corde && spo.getDynaEnt() instanceof Bot){
+                        icoBotCorde.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                     }
                     
                 } else {
                     tabJLabel[x][y].setIcon(icoVide);
+                    icoVide.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                 }
             }
         }
@@ -179,7 +190,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
         // adapter la taille de l'image a la taille du composant (ici : 20x20)
         return new ImageIcon(bi.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH));
     }
-
+    
     private BufferedImage getSubImage(String urlIcone, int x, int y, int w, int h) {
         BufferedImage image = null;
 
