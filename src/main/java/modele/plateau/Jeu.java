@@ -88,7 +88,8 @@ public class Jeu {
         for (int y = 8; y > 5; y--) {
             addEntite(new Corde(this), 13, y );
         }
-
+        
+        addEntite(new Corde(this),3,8);
        
         /*for (int x = 5; x < 12; x++) {
             addEntite(new Mur(this), x, 7);

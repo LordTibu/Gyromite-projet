@@ -33,6 +33,8 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
     // icones affichées dans la grille
     private AlphaIcon icoHero;
+    
+    private AlphaIcon icoHeroM;
     private AlphaIcon icoBot;
     private AlphaIcon icoVide;
     private AlphaIcon icoMur;
@@ -46,7 +48,8 @@ public class VueControleurGyromite extends JFrame implements Observer {
     private ImageIcon icoTest;
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
-
+    
+    private Integer typeHero = 0;
 
     public VueControleurGyromite(Jeu _jeu) {
         sizeX = _jeu.SIZE_X;
@@ -63,13 +66,22 @@ public class VueControleurGyromite extends JFrame implements Observer {
             @Override
             public void keyPressed(KeyEvent e) {
                 switch(e.getKeyCode()) {  // on regarde quelle touche a été pressée
-                    case KeyEvent.VK_LEFT : Controle4Directions.getInstance().setDirectionCourante(Direction.gauche); break;
-                    case KeyEvent.VK_RIGHT : Controle4Directions.getInstance().setDirectionCourante(Direction.droite); break;
+                    case KeyEvent.VK_LEFT : Controle4Directions.getInstance().setDirectionCourante(Direction.gauche); 
+                                            typeHero = 1;
+                                            break;
+                    case KeyEvent.VK_RIGHT : Controle4Directions.getInstance().setDirectionCourante(Direction.droite);
+                                            typeHero = 1;
+                                            break;
                     case KeyEvent.VK_DOWN : Controle4Directions.getInstance().setDirectionCourante(Direction.bas); break;
                     case KeyEvent.VK_UP : Controle4Directions.getInstance().setDirectionCourante(Direction.haut); break;
                     case KeyEvent.VK_R : CColonne.getInstance().triggerColonne(); break; 
-                     
                 }
+            }
+            
+            @Override
+            public void keyReleased(KeyEvent e) {
+                typeHero = 0;
+               
             }
         });
     }
@@ -77,6 +89,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
 
     private void chargerLesIcones() {
         icoHero = new AlphaIcon(chargerIcone("Images/player_ca.png", 0, 0, 35, 40),1.0f);
+        icoHeroM = new AlphaIcon(chargerIcone("Images/player_ca.png", 67, 0, 30, 45),1.0f);
         icoBot = new AlphaIcon(chargerIcone("Images/smick_ca.png", 35, 3, 26, 28),1.0f);
         
         icoTest = chargerIcone("Images/Vide.png");
@@ -119,7 +132,12 @@ public class VueControleurGyromite extends JFrame implements Observer {
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 if (jeu.getGrille()[x][y] instanceof Heros) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue     
-                    icoHero.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
+                   if(typeHero == 1){ //Movimiento 
+                       icoHeroM.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
+                   }else {
+                       icoHero.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
+                   }
+                    
                 } else if (jeu.getGrille()[x][y] instanceof Bot) {
                     icoBot.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                 } else if (jeu.getGrille()[x][y] instanceof Mur) {
