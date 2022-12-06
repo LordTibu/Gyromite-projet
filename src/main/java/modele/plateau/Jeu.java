@@ -289,11 +289,7 @@ public class Jeu {
         map.clear();
         cmptDeplH.clear();
         cmptDeplV.clear();
-        for(Entite[] E : grilleEntites){
-            for(Entite e : E){
-                e = null;
-            }
-        }
+        grilleEntites = new Entite[SIZE_X][SIZE_Y];
         initialisationDesEntites();
      }
 }
