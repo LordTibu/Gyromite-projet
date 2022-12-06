@@ -55,9 +55,13 @@ public class CColonne extends RealisateurDeDeplacement {
                     for(Integer y = sommeTailles + colTaille.get(x) - 1; y >= sommeTailles; y--){
                         Entite e = lstEntitesDynamiques.get(y).regarderDansLaDirection(Direction.haut);
                         if(e != null && e.peutEtreEcrase()){
-                            if(((EntiteDynamique)e).regarderDansLaDirection(Direction.haut) instanceof Mur)
-                            e.matar();
-                        }
+                            if(((EntiteDynamique)e).regarderDansLaDirection(Direction.haut) instanceof Mur){
+                                e.matar();
+                            }
+                            else{
+                                ((EntiteDynamique)e).avancerDirectionChoisie(Direction.haut);
+                            }
+                            }
                         ret = lstEntitesDynamiques.get(y).avancerDirectionChoisie(Direction.haut);
                     }
                     if(ret){

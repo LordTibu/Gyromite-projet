@@ -81,7 +81,9 @@ public class VueControleurGyromite extends JFrame implements Observer {
             @Override
             public void keyReleased(KeyEvent e) {
                 typeHero = 0;
-               
+                switch(e.getKeyCode()){
+                    case KeyEvent.VK_R : CColonne.getInstance().resetColonne(); break;
+                }
             }
         });
     }

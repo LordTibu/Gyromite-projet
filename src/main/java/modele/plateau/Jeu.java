@@ -34,8 +34,15 @@ public class Jeu {
 
     private Ordonnanceur ordonnanceur = new Ordonnanceur(this);
     
-    private Integer cmptBombes = 0; 
-
+    private Integer cmptBombes = 0;
+    
+    public IA ia;
+    
+    boolean running = true;
+    
+    public boolean isRunning() {return running;}
+    public void reset() {running = true;}
+            
     public Jeu() {
         initialisationDesEntites();
     }
@@ -71,7 +78,7 @@ public class Jeu {
         
         Bot gustavo = new Bot(this);
         addEntite(gustavo,5,8);
-        IA ia = new IA();
+        ia = new IA();
         ia.addEntiteDynamique(gustavo);
         ordonnanceur.add(ia);
         
@@ -276,9 +283,15 @@ public class Jeu {
         if(e instanceof Heros){
             //tratamiento para gameOver
             grilleEntites[p.x][p.y] = null;
+            //map.remove(e);
+            Controle4Directions.getInstance().removeEntiteDynamique(hector);
+            System.out.println("last chance to look at me, Hector");
+            running = false;
         }
         else{
             grilleEntites[p.x][p.y] = null;
+            //map.remove(e);
+            ia.removeEntiteDynamique((EntiteDynamique)e);
         }
     }
 }

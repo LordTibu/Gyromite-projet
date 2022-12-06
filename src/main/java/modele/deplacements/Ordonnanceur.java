@@ -11,6 +11,7 @@ public class Ordonnanceur extends Observable implements Runnable {
     private Jeu jeu;
     private ArrayList<RealisateurDeDeplacement> lstDeplacements = new ArrayList<RealisateurDeDeplacement>();
     private long pause;
+    boolean x = true;
     public void add(RealisateurDeDeplacement deplacement) {
         lstDeplacements.add(deplacement);
     }
@@ -29,24 +30,28 @@ public class Ordonnanceur extends Observable implements Runnable {
         boolean update = false;
 
         while(true) {
-            jeu.resetCmptDepl();
-            for (RealisateurDeDeplacement d : lstDeplacements) {
-                if (d.realiserDeplacement())
-                    update = true;
+            if(jeu.isRunning()){
+                jeu.resetCmptDepl();
+                for (RealisateurDeDeplacement d : lstDeplacements) {
+                    if (d.realiserDeplacement())
+                        update = true;
+                }
+
+                Controle4Directions.getInstance().resetDirection();
+
+                if (update) {
+                    setChanged();
+                    notifyObservers();
+                }
+
+                try {
+                    sleep(pause);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-
-            Controle4Directions.getInstance().resetDirection();
-            CColonne.getInstance().resetColonne();
-
-            if (update) {
-                setChanged();
-                notifyObservers();
-            }
-
-            try {
-                sleep(pause);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            else{
+                System.out.println("");
             }
         }
 
