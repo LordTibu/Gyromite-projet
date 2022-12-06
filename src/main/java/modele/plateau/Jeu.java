@@ -41,7 +41,6 @@ public class Jeu {
     boolean running = true;
     
     public boolean isRunning() {return running;}
-    public void reset() {running = true;}
             
     public Jeu() {
         initialisationDesEntites();
@@ -145,7 +144,6 @@ public class Jeu {
        
         Point pCible = calculerPointCible(pCourant, d);
          
-        
         switch(d){
         case bas:
         case haut:
@@ -153,7 +151,6 @@ public class Jeu {
             if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null ) {
                 if (cmptDeplV.get(e) == null) {
                             cmptDeplV.put(e, 1);
-
                             retour = true;
                         }
                         break;
@@ -173,7 +170,6 @@ public class Jeu {
                     System.out.println("obstaculo bomba");
                     if (cmptDeplV.get(e) == null) {
                             cmptDeplV.put(e, 1);
-                            
                             cmptBombes ++;
                             retour = true;
                         }
@@ -186,11 +182,8 @@ public class Jeu {
             //S'il y a pas d'objet dans la direction de l'entite e, e peut avancer 
             if (contenuDansGrille(pCible) && objetALaPosition(pCible) == null ) {
                 if (cmptDeplH.get(e) == null) {
-                        cmptDeplH.put(e, 1);
-                       
-                        
-                        retour = true;
-                        
+                        cmptDeplH.put(e, 1);                 
+                        retour = true; 
                     }
                     break;
             }else if(objetALaPosition(pCible) != null){ //Choca con algo
@@ -210,10 +203,8 @@ public class Jeu {
                     System.out.println("obstaculo bomba");
                     if (cmptDeplH.get(e) == null) {
                         cmptDeplH.put(e, 1);
-                        
                         cmptBombes ++;
                         retour = true;
-                        
                     }
                     System.out.println(cmptBombes);
                 } 
@@ -279,19 +270,30 @@ public class Jeu {
     
     public void matar(Entite e){
         Point p = map.get(e);
-        //System.out.println("El punto es: " + p.x + " " + p.y );
         if(e instanceof Heros){
             //tratamiento para gameOver
             grilleEntites[p.x][p.y] = null;
-            //map.remove(e);
             Controle4Directions.getInstance().removeEntiteDynamique(hector);
             System.out.println("last chance to look at me, Hector");
             running = false;
         }
         else{
             grilleEntites[p.x][p.y] = null;
-            //map.remove(e);
             ia.removeEntiteDynamique((EntiteDynamique)e);
         }
     }
+    
+     public void reset() {
+        running = true;
+        ordonnanceur.reset();
+        map.clear();
+        cmptDeplH.clear();
+        cmptDeplV.clear();
+        for(Entite[] E : grilleEntites){
+            for(Entite e : E){
+                e = null;
+            }
+        }
+        initialisationDesEntites();
+     }
 }

@@ -24,34 +24,36 @@ public class Ordonnanceur extends Observable implements Runnable {
         pause = _pause;
         new Thread(this).start();
     }
+    
+    public void reset(){
+        for (RealisateurDeDeplacement d : lstDeplacements) {
+            d.reset();
+        }
+    }
 
     @Override
     public void run() {
         boolean update = false;
 
         while(true) {
-            if(jeu.isRunning()){
-                jeu.resetCmptDepl();
-                for (RealisateurDeDeplacement d : lstDeplacements) {
-                    if (d.realiserDeplacement())
-                        update = true;
-                }
-
-                Controle4Directions.getInstance().resetDirection();
-
-                if (update) {
-                    setChanged();
-                    notifyObservers();
-                }
-
-                try {
-                    sleep(pause);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            jeu.resetCmptDepl();
+            
+            for (RealisateurDeDeplacement d : lstDeplacements) {
+                if (d.realiserDeplacement())
+                    update = true;
             }
-            else{
-                System.out.println("");
+            
+            Controle4Directions.getInstance().resetDirection();
+
+            if (update) {
+                setChanged();
+                notifyObservers();
+            }
+
+            try {
+                sleep(pause);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
 
