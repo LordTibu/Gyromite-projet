@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
- */
-
 import VueControleur.VueControleurGyromite;
 import modele.plateau.Jeu;
 
@@ -20,6 +15,6 @@ public class Lifapoo {
         jeu.getOrdonnanceur().addObserver(vc);
         
         vc.setVisible(true);
-        jeu.start(300);
+        jeu.start(200);
     }
 }
