@@ -217,11 +217,11 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     icoBotL[spritenum].paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                 } else if (jeu.getGrille()[x][y] instanceof Mur) {
                     if(x > 0 && x < sizeX-1 && y > 0 && y < sizeY-1){
-                        tabJLabel[x][y].setIcon(icoPlataform);
+                        icoPlataform.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                     } else if (x == 0 || x ==sizeX-1) {
-                        tabJLabel[x][y].setIcon(icoMur2);
+                        icoMur2.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                     } else{
-                        tabJLabel[x][y].setIcon(icoMur);
+                        icoMur.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                     }
                 } else if (jeu.getGrille()[x][y] instanceof Colonne) {
                     icoVide.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
@@ -229,6 +229,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
                 } else if (jeu.getGrille()[x][y] instanceof Corde){
                     icoCorde.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                 } else if (jeu.getGrille()[x][y] instanceof Rabano){
+                    icoVide.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                     icoRabano.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                 } else if (jeu.getGrille()[x][y] instanceof Bombe){
                     icoVide.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
@@ -242,11 +243,12 @@ public class VueControleurGyromite extends JFrame implements Observer {
                         icoBotCorde.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                     }
                     else if(spo.getStaticEnt() instanceof Rabano){
+                        icoVide.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                         icoDrRabanoRight.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                     }
                     
                 } else {
-                    //tabJLabel[x][y].setIcon(icoVide);
+                    
                     icoVide.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                 }
             }
