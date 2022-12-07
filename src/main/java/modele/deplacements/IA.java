@@ -21,6 +21,7 @@ public class IA extends RealisateurDeDeplacement {
         if(isValidDir(e, Direction.haut)) dir.add(Direction.haut);
         if(isValidDir(e, Direction.bas)) dir.add(Direction.bas);
         return dir;
+        //On calcule les directions valides depuis la position courante du bot
     }
     
     protected boolean isValidDir(EntiteDynamique e, Direction d){
@@ -33,8 +34,8 @@ public class IA extends RealisateurDeDeplacement {
                     if(tmp instanceof Mur || tmp instanceof Bot) return false;
                 } //Colission avec Mur
                 tmp = e.regarderDansLaDirection(Direction.bas);
-                if(tmp instanceof Mur){
-                    if(tmp.regarderDansLaDirection(d) instanceof Mur) return true; //Chemin Valide
+                if(tmp != null && tmp.peutServirDeSupport()){
+                    if(tmp.regarderDansLaDirection(d) != null && tmp.regarderDansLaDirection(d).peutServirDeSupport()) return true; //Chemin Valide
                 }
                 break;
             case haut:
@@ -46,6 +47,7 @@ public class IA extends RealisateurDeDeplacement {
                 break;
         }
         return false;
+        //On calcule si d est une direction valide à prendre depuis la position actuelle du bot
     }
     
     @Override
@@ -56,10 +58,12 @@ public class IA extends RealisateurDeDeplacement {
         for(int i = 0; i < lstEntitesDynamiques.size(); i++){
             if(lstEntitesDynamiques.get(i).regarderDansLaDirection(directionCourante.get(i)) instanceof Heros){
                 lstEntitesDynamiques.get(i).regarderDansLaDirection(directionCourante.get(i)).matar();
+                //Si l'entite dans le chemin du bot est l'heros du coup on le tue
                 //Je sais que c'est horrible à lire mais c'est encore plus horrible à ecrire
             }
             if(isValidDir(lstEntitesDynamiques.get(i), directionCourante.get(i))){
                 return lstEntitesDynamiques.get(i).avancerDirectionChoisie(directionCourante.get(i));
+                //Si la direction courante du bot est valide (pas d'obstacle etc..) il pursuit son chemin
             }
             else{
                 tabDir = getAvailableDir(lstEntitesDynamiques.get(i));
@@ -67,6 +71,7 @@ public class IA extends RealisateurDeDeplacement {
                 rand_int = getRandInt(tabDir.size());
                 directionCourante.set(i, tabDir.get(rand_int));
                 return lstEntitesDynamiques.get(i).avancerDirectionChoisie(tabDir.get(rand_int));
+                //Sinon on calcule les directions possibles depuis sa position courante et on choisi une aleatoirement
             }
         }
         return false; 
