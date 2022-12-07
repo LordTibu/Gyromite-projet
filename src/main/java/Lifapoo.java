@@ -15,6 +15,7 @@ public class Lifapoo {
         jeu.getOrdonnanceur().addObserver(vc);
         
         vc.setVisible(true);
+        
         jeu.start(200);
     }
 }
