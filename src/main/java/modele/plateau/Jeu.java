@@ -20,7 +20,7 @@ import java.util.HashMap;
  */
 public class Jeu {
 
-    public static final int SIZE_X = 20;
+    public static final int SIZE_X = 30;
     public static final int SIZE_Y = 10;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
@@ -61,6 +61,10 @@ public class Jeu {
     
     public Heros getHector() {
         return hector;
+    }
+    
+    public HashMap<Entite, Point> getMap() {
+        return map;
     }
     
     private void initialisationDesEntites() {
@@ -203,7 +207,7 @@ public class Jeu {
                         }
                        
                 }else if(objetALaPosition(pCible) instanceof Bombe){ //Choca con bomba
-                    System.out.println("obstaculo bomba");
+                    
                     if (cmptDeplH.get(e) == null) {
                         cmptDeplH.put(e, 1);
                         cmptBombes ++;
@@ -243,7 +247,7 @@ public class Jeu {
             grilleEntites[pCourant.x][pCourant.y] = spo.getStaticEnt();
             spo = null;
             
-            System.out.println("se esta detectando");
+          
         }else {
             grilleEntites[pCourant.x][pCourant.y] = null;
         }
