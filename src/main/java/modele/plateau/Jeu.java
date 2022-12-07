@@ -20,7 +20,7 @@ import java.util.HashMap;
  */
 public class Jeu {
 
-    public static final int SIZE_X = 30;
+    public static final int SIZE_X = 20;
     public static final int SIZE_Y = 10;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
@@ -61,10 +61,6 @@ public class Jeu {
     
     public Heros getHector() {
         return hector;
-    }
-    
-    public HashMap<Entite, Point> getMap() {
-        return map;
     }
     
     private void initialisationDesEntites() {
@@ -174,6 +170,10 @@ public class Jeu {
                             retour = true;
                         }
                 }
+                else if(objetALaPosition(pCible) instanceof Rabano){
+                    ((Bot)e).eatRabano();
+                    retour = true;
+                }
                 else if(objetALaPosition(pCible) instanceof Bombe){ //Choca con bomba
                     System.out.println("obstaculo bomba");
                     if (cmptDeplV.get(e) == null) {
@@ -196,7 +196,8 @@ public class Jeu {
                     break;
             }else if(objetALaPosition(pCible) != null){ //Choca con algo
                 if(objetALaPosition(pCible) instanceof Corde ||
-                   objetALaPosition(pCible) instanceof Rabano){//Choca con la cuerda
+                   (objetALaPosition(pCible) instanceof Rabano &&
+                        e instanceof Heros)){//Choca con la cuerda
                     if (cmptDeplH.get(e) == null) {
                             cmptDeplH.put(e, 1);
                             SuperEntite pp = new SuperEntite (this);
@@ -206,9 +207,13 @@ public class Jeu {
                             e = pp;
                             retour = true;
                         }
-                       
-                }else if(objetALaPosition(pCible) instanceof Bombe){ //Choca con bomba
-                    
+                }
+                else if(objetALaPosition(pCible) instanceof Rabano){
+                    ((Bot)e).eatRabano();
+                    retour = true;
+                }
+                else if(objetALaPosition(pCible) instanceof Bombe){ //Choca con bomba
+                    System.out.println("obstaculo bomba");
                     if (cmptDeplH.get(e) == null) {
                         cmptDeplH.put(e, 1);
                         cmptBombes ++;
@@ -248,7 +253,7 @@ public class Jeu {
             grilleEntites[pCourant.x][pCourant.y] = spo.getStaticEnt();
             spo = null;
             
-          
+            System.out.println("se esta detectando");
         }else {
             grilleEntites[pCourant.x][pCourant.y] = null;
         }

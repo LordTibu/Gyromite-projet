@@ -33,7 +33,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
     
     private int sizeX; // taille de la grille affichée
     private int sizeY;
-    private int screenX = 1400;
+    private int screenX = 900;
     private int screenY = 500;
 
     // icones affichées dans la grille
@@ -63,11 +63,12 @@ public class VueControleurGyromite extends JFrame implements Observer {
     
     private Integer typeHero = 0;
     private Integer typeHeroNeutral = 0;
+
     public VueControleurGyromite(Jeu _jeu) {
         sizeX = _jeu.SIZE_X;
         sizeY = _jeu.SIZE_Y;
         jeu = _jeu;
-        
+
         chargerLesIcones();
         placerLesComposantsGraphiques();
         ajouterEcouteurClavier();
@@ -168,7 +169,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
         JComponent grilleJLabels = new JPanel(new GridLayout(sizeY, sizeX)); // grilleJLabels va contenir les cases graphiques et les positionner sous la forme d'une grille
         
         tabJLabel = new JLabel[sizeX][sizeY];
-        
+
         for (int y = 0; y < sizeY; y++) {
             for (int x = 0; x < sizeX; x++) {
                 JLabel jlab = new JLabel();
@@ -186,7 +187,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
      * Il y a une grille du côté du modèle ( jeu.getGrille() ) et une grille du côté de la vue (tabJLabel)
      */
     private void mettreAJourAffichage() {
-        //System.out.println(cameraX + " " + cameraY)
+        System.out.println(cmpt );
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 if (jeu.getGrille()[x][y] instanceof Heros) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue     
@@ -216,11 +217,11 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     icoBotL[spritenum].paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                 } else if (jeu.getGrille()[x][y] instanceof Mur) {
                     if(x > 0 && x < sizeX-1 && y > 0 && y < sizeY-1){
-                        icoPlataform.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
+                        tabJLabel[x][y].setIcon(icoPlataform);
                     } else if (x == 0 || x ==sizeX-1) {
-                        icoMur2.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
+                        tabJLabel[x][y].setIcon(icoMur2);
                     } else{
-                        icoMur.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
+                        tabJLabel[x][y].setIcon(icoMur);
                     }
                 } else if (jeu.getGrille()[x][y] instanceof Colonne) {
                     icoVide.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
@@ -228,7 +229,6 @@ public class VueControleurGyromite extends JFrame implements Observer {
                 } else if (jeu.getGrille()[x][y] instanceof Corde){
                     icoCorde.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                 } else if (jeu.getGrille()[x][y] instanceof Rabano){
-                    icoVide.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                     icoRabano.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                 } else if (jeu.getGrille()[x][y] instanceof Bombe){
                     icoVide.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
@@ -246,9 +246,9 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     }
                     
                 } else {
+                    //tabJLabel[x][y].setIcon(icoVide);
                     icoVide.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                 }
-                
             }
         }
         cmpt ++;
