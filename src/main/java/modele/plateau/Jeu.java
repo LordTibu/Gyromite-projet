@@ -119,6 +119,7 @@ public class Jeu {
         addEntite(new Mur(this), 2, 6);
         addEntite(new Bombe(this), 4, 7);
         addEntite(new Bombe(this), 1, 7);
+        cmptBombes = 2;
         addEntite(new Mur(this), 3, 6);
         addEntite(new Mur(this), 14, 8);
         addEntite(new Mur(this), 14, 7);
@@ -175,13 +176,12 @@ public class Jeu {
                     retour = true;
                 }
                 else if(objetALaPosition(pCible) instanceof Bombe){ //Choca con bomba
-                    System.out.println("obstaculo bomba");
                     if (cmptDeplV.get(e) == null) {
                             cmptDeplV.put(e, 1);
                             cmptBombes ++;
                             retour = true;
+                            if(cmptBombes == 0) System.out.println("Victory!!!!!");
                         }
-                    System.out.println(cmptBombes);
                 }
                 break;
             }
@@ -213,13 +213,12 @@ public class Jeu {
                     retour = true;
                 }
                 else if(objetALaPosition(pCible) instanceof Bombe){ //Choca con bomba
-                    System.out.println("obstaculo bomba");
                     if (cmptDeplH.get(e) == null) {
                         cmptDeplH.put(e, 1);
                         cmptBombes ++;
                         retour = true;
+                        if(cmptBombes == 0) System.out.println("Victory!!!!!");
                     }
-                    System.out.println(cmptBombes);
                 } 
                 break;
             }
@@ -252,8 +251,6 @@ public class Jeu {
             SuperEntite spo = (SuperEntite)objetALaPosition(pCourant);
             grilleEntites[pCourant.x][pCourant.y] = spo.getStaticEnt();
             spo = null;
-            
-            System.out.println("se esta detectando");
         }else {
             grilleEntites[pCourant.x][pCourant.y] = null;
         }
