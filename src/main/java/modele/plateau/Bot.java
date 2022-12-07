@@ -12,6 +12,7 @@ import java.util.Random;
  */
 public class Bot extends EntiteDynamique {
     private Random r = new Random();
+    private int eating = 0;
 
     public Bot(Jeu _jeu) {
         super(_jeu);
@@ -21,7 +22,13 @@ public class Bot extends EntiteDynamique {
     public boolean peutServirDeSupport() { return true; }
     public boolean peutPermettreDeMonterDescendre() { return false; };
     
-    public int getRandInt(int maxR){
-        return r.nextInt(maxR);
+    public void eatRabano(){
+        eating = 25;
+    }
+    public void reduceRabano(){
+        if(eating > 0) eating--; 
+    }
+    public boolean isEating(){
+        return eating > 0;
     }
 }

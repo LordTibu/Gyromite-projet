@@ -65,7 +65,10 @@ public class Jeu {
     
     private void initialisationDesEntites() {
         hector = new Heros(this);
-        addEntite(hector, 2, 1);
+        addEntite(hector, 2, 5);
+        
+        Rabano r = new Rabano(this);
+        addEntite(r,3,5);
 
         Gravite g = new Gravite();
         g.addEntiteDynamique(hector);
@@ -283,7 +286,7 @@ public class Jeu {
         }
     }
     
-     public void reset() {
+    public void reset() {
         running = true;
         ordonnanceur.reset();
         map.clear();
@@ -291,5 +294,36 @@ public class Jeu {
         cmptDeplV.clear();
         grilleEntites = new Entite[SIZE_X][SIZE_Y];
         initialisationDesEntites();
-     }
+    }
+     
+    public void tryRabano(){
+        if(!hector.hasRabano()){
+            Point p = map.get(hector);
+            if(objetALaPosition(p) instanceof SuperEntite){
+                SuperEntite spo = (SuperEntite)objetALaPosition(p);
+                if(spo.staticEnt instanceof Rabano){
+                    hector.getRabano();
+                    map.remove(spo.staticEnt);
+                    map.remove(spo);
+                    grilleEntites[p.x][p.y] = hector;
+                }
+            }
+        }
+        else{
+            Point p = map.get(hector);
+            if(objetALaPosition(p) instanceof SuperEntite){
+                System.out.println("invalid Rabano position");
+            }
+            else{
+                Rabano rab = new Rabano(this);
+                map.put(rab, p);
+                SuperEntite sp = new SuperEntite(this);
+                sp.staticEnt = rab;
+                sp.dynaEnt = hector;
+                map.put(sp, p);
+                grilleEntites[p.x][p.y] = sp;
+                hector.loseRabano();
+            }
+        }
+    }
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class IA extends RealisateurDeDeplacement {
+    private int banano = 0;
     private Random r = new Random();
     protected ArrayList<Direction> directionCourante = new ArrayList<>();
     
@@ -31,7 +32,7 @@ public class IA extends RealisateurDeDeplacement {
             case gauche:
                 tmp = e.regarderDansLaDirection(d);
                 if(tmp != null){
-                    if(tmp instanceof Mur || tmp instanceof Bot) return false;
+                    if(tmp instanceof Mur || tmp instanceof Bot || tmp instanceof Colonne) return false;
                 } //Colission avec Mur
                 tmp = e.regarderDansLaDirection(Direction.bas);
                 if(tmp != null && tmp.peutServirDeSupport()){
@@ -56,22 +57,29 @@ public class IA extends RealisateurDeDeplacement {
         ArrayList<Direction> tabDir = null;
         int r = 0;
         for(int i = 0; i < lstEntitesDynamiques.size(); i++){
-            if(lstEntitesDynamiques.get(i).regarderDansLaDirection(directionCourante.get(i)) instanceof Heros){
-                lstEntitesDynamiques.get(i).regarderDansLaDirection(directionCourante.get(i)).matar();
-                //Si l'entite dans le chemin du bot est l'heros du coup on le tue
-                //Je sais que c'est horrible à lire mais c'est encore plus horrible à ecrire
-            }
-            if(isValidDir(lstEntitesDynamiques.get(i), directionCourante.get(i))){
-                return lstEntitesDynamiques.get(i).avancerDirectionChoisie(directionCourante.get(i));
-                //Si la direction courante du bot est valide (pas d'obstacle etc..) il pursuit son chemin
+            if(!((Bot)lstEntitesDynamiques.get(i)).isEating()){
+                if(lstEntitesDynamiques.get(i).regarderDansLaDirection(directionCourante.get(i)) instanceof Heros){
+                    lstEntitesDynamiques.get(i).regarderDansLaDirection(directionCourante.get(i)).matar();
+                    //Si l'entite dans le chemin du bot est l'heros du coup on le tue
+                    //Je sais que c'est horrible à lire mais c'est encore plus horrible à ecrire
+                }
+                if(isValidDir(lstEntitesDynamiques.get(i), directionCourante.get(i))){
+                    return lstEntitesDynamiques.get(i).avancerDirectionChoisie(directionCourante.get(i));
+                    //Si la direction courante du bot est valide (pas d'obstacle etc..) il pursuit son chemin
+                }
+                else{
+                    tabDir = getAvailableDir(lstEntitesDynamiques.get(i));
+                    if(tabDir.isEmpty()) return false;
+                    rand_int = getRandInt(tabDir.size());
+                    directionCourante.set(i, tabDir.get(rand_int));
+                    return lstEntitesDynamiques.get(i).avancerDirectionChoisie(tabDir.get(rand_int));
+                    //Sinon on calcule les directions possibles depuis sa position courante et on choisi une aleatoirement
+                }
             }
             else{
-                tabDir = getAvailableDir(lstEntitesDynamiques.get(i));
-                if(tabDir.isEmpty()) return false;
-                rand_int = getRandInt(tabDir.size());
-                directionCourante.set(i, tabDir.get(rand_int));
-                return lstEntitesDynamiques.get(i).avancerDirectionChoisie(tabDir.get(rand_int));
-                //Sinon on calcule les directions possibles depuis sa position courante et on choisi une aleatoirement
+                ((Bot)lstEntitesDynamiques.get(i)).reduceRabano();
+                System.out.println("comiendo banano" + banano);
+                banano++;
             }
         }
         return false; 
