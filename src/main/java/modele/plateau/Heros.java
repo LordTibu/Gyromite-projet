@@ -21,4 +21,7 @@ public class Heros extends EntiteDynamique {
     public boolean hasRabano() {return rabano;}
     public void getRabano(){rabano = true;}
     public void loseRabano(){rabano = false;}
+    public void tryRabano(){
+        jeu.tryRabano();
+    }
 }

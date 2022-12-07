@@ -158,7 +158,8 @@ public class Jeu {
                         }
                         break;
             }else if(objetALaPosition(pCible) != null){ //Choca con algo
-                if(objetALaPosition(pCible) instanceof Corde){//Choca con la cuerda
+                if(objetALaPosition(pCible) instanceof Corde ||
+                   objetALaPosition(pCible) instanceof Rabano){//Choca con la cuerda
                     if (cmptDeplV.get(e) == null) {
                             cmptDeplV.put(e, 1);
                             SuperEntite pp = new SuperEntite (this);
@@ -168,8 +169,8 @@ public class Jeu {
                             e = pp;
                             retour = true;
                         }
-                        
-                }else if(objetALaPosition(pCible) instanceof Bombe){ //Choca con bomba
+                }
+                else if(objetALaPosition(pCible) instanceof Bombe){ //Choca con bomba
                     System.out.println("obstaculo bomba");
                     if (cmptDeplV.get(e) == null) {
                             cmptDeplV.put(e, 1);
@@ -190,7 +191,8 @@ public class Jeu {
                     }
                     break;
             }else if(objetALaPosition(pCible) != null){ //Choca con algo
-                if(objetALaPosition(pCible) instanceof Corde){//Choca con la cuerda
+                if(objetALaPosition(pCible) instanceof Corde ||
+                   objetALaPosition(pCible) instanceof Rabano){//Choca con la cuerda
                     if (cmptDeplH.get(e) == null) {
                             cmptDeplH.put(e, 1);
                             SuperEntite pp = new SuperEntite (this);
@@ -199,10 +201,9 @@ public class Jeu {
                             pp.setDynaEnt(e);
                             e = pp;
                             retour = true;
-                            
                         }
-                       
-                }else if(objetALaPosition(pCible) instanceof Bombe){ //Choca con bomba
+                }
+                else if(objetALaPosition(pCible) instanceof Bombe){ //Choca con bomba
                     System.out.println("obstaculo bomba");
                     if (cmptDeplH.get(e) == null) {
                         cmptDeplH.put(e, 1);

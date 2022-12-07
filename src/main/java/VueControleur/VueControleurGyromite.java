@@ -55,6 +55,8 @@ public class VueControleurGyromite extends JFrame implements Observer {
     
     private AlphaIcon[] icoBombe;
     private AlphaIcon icoRabano;
+    private AlphaIcon icoDrRabanoRight;
+    private AlphaIcon icoDrRabanoLeft;
     private ImageIcon icoTest;
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
@@ -106,7 +108,8 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     case KeyEvent.VK_UP : Controle4Directions.getInstance().setDirectionCourante(Direction.haut); 
                                             typeHero = 3;
                                             break;
-                    case KeyEvent.VK_R : CColonne.getInstance().triggerColonne(); break; 
+                    case KeyEvent.VK_R : CColonne.getInstance().triggerColonne(); break;
+                    case KeyEvent.VK_C : Controle4Directions.getInstance().tryRabano(); break;
                     case KeyEvent.VK_F : jeu.reset(); reset(); break;
                 }
                 
@@ -155,6 +158,8 @@ public class VueControleurGyromite extends JFrame implements Observer {
         
         icoPlataform = new AlphaIcon(chargerIcone("Images/tileset.png",0,1,16,16),1.0f);
         icoRabano = new AlphaIcon(chargerIcone("Images/smick_ca.png", 37, 130, 26, 30),1.0f);
+        icoDrRabanoRight = new AlphaIcon(chargerIcone("Images/drRabanoRight.png", 0, 0, 32, 45), 1.0f);
+        icoDrRabanoLeft = new AlphaIcon(chargerIcone("Images/drRabanoLeft.png", 0, 0, 32, 45), 1.0f);
     }
 
     private void placerLesComposantsGraphiques() {
@@ -235,6 +240,9 @@ public class VueControleurGyromite extends JFrame implements Observer {
                     } else if(spo.getStaticEnt() instanceof Corde && spo.getDynaEnt() instanceof Bot){
                         icoCorde.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                         icoBotCorde.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
+                    }
+                    else if(spo.getStaticEnt() instanceof Rabano){
+                        icoDrRabanoRight.paintIcon(null,tabJLabel[x][y].getGraphics(),0,0);
                     }
                     
                 } else {

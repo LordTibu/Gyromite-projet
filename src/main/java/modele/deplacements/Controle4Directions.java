@@ -2,6 +2,7 @@ package modele.deplacements;
 
 import modele.plateau.Entite;
 import modele.plateau.EntiteDynamique;
+import modele.plateau.Heros;
 
 /**
  * Controle4Directions permet d'appliquer une direction (connexion avec le clavier) à un ensemble d'entités dynamiques
@@ -57,5 +58,11 @@ public class Controle4Directions extends RealisateurDeDeplacement {
 
     public void resetDirection() {
         directionCourante = null;
+    }
+    
+    public void tryRabano(){
+        if(!lstEntitesDynamiques.isEmpty()){
+            ((Heros)lstEntitesDynamiques.get(0)).tryRabano();
+        }
     }
 }
