@@ -20,7 +20,7 @@ import java.util.HashMap;
  */
 public class Jeu {
 
-    public static final int SIZE_X = 20;
+    public static final int SIZE_X = 30;
     public static final int SIZE_Y = 10;
 
     // compteur de déplacements horizontal et vertical (1 max par défaut, à chaque pas de temps)
@@ -65,10 +65,10 @@ public class Jeu {
     
     private void initialisationDesEntites() {
         hector = new Heros(this);
-        addEntite(hector, 2, 5);
+        addEntite(hector, 2, 2);
         
         Rabano r = new Rabano(this);
-        addEntite(r,3,5);
+        //addEntite(r,3,5);
 
         Gravite g = new Gravite();
         g.addEntiteDynamique(hector);
@@ -77,32 +77,44 @@ public class Jeu {
         Controle4Directions.getInstance().addEntiteDynamique(hector);
         ordonnanceur.add(Controle4Directions.getInstance());
         
-        
+        cmptBombes = 3;
         Bot gustavo = new Bot(this);
         addEntite(gustavo,5,8);
         ia = new IA();
         ia.addEntiteDynamique(gustavo);
+        
+        Bot gustavo1 = new Bot(this);
+        addEntite(gustavo1,20,8);
+        ia.addEntiteDynamique(gustavo1);
         ordonnanceur.add(ia);
         
         
-        for (int y = 6; y > 3; y--) {
+        for (int y =3; y > 0; y--) {
             Colonne e = new Colonne(this);
             addEntite(e, 10, y);
             CColonne.getInstance().addEntiteDynamique(e);
         }
         CColonne.getInstance().addCol(3);
-        ordonnanceur.add( CColonne.getInstance());
+        addEntite(new Mur(this), 10, 6);
         
-        //CoRDE
-        for (int y = 8; y > 5; y--) {
-            addEntite(new Corde(this), 13, y );
+        addEntite(new Bombe(this), 26, 2);
+        addEntite(new Bombe(this), 2, 7);
+        addEntite(new Bombe(this), 28, 7);
+        for (int y =6; y > 2; y--) {
+            Colonne e = new Colonne(this);
+            addEntite(e, 26, y);
+            CColonne.getInstance().addEntiteDynamique(e);
         }
+        CColonne.getInstance().addCol(4);
         
-        addEntite(new Corde(this),3,8);
+        ordonnanceur.add( CColonne.getInstance());
+        //CoRDE
+        for (int y = 8; y > 3; y--) {
+            addEntite(new Corde(this), 15, y );
+        }
+        addEntite(new Mur(this), 16, 8);
+        //addEntite(new Corde(this),3,8);
        
-        /*for (int x = 5; x < 12; x++) {
-            addEntite(new Mur(this), x, 7);
-        }*/
         
         // murs extérieurs horizontaux
         for (int x = 0; x < SIZE_X; x++) {
@@ -115,15 +127,30 @@ public class Jeu {
             addEntite(new Mur(this), 0, y);
             addEntite(new Mur(this), SIZE_X-1, y);
         }
-
+        
+        for (int xx =1 ;xx < 10;xx++){
+            addEntite(new Mur(this), xx, 3);
+        }
+        
+        for (int xx =12 ;xx < 15;xx++){
+            addEntite(new Mur(this), xx, 5);
+        }
+        
+        for (int xx =16 ;xx < 26;xx++){
+            addEntite(new Mur(this), xx, 5);
+        }
+        for (int xx =27 ;xx < 30;xx++){
+            addEntite(new Mur(this), xx, 5);
+        }
+        /*
         addEntite(new Mur(this), 2, 6);
         addEntite(new Bombe(this), 4, 7);
         addEntite(new Bombe(this), 1, 7);
         cmptBombes = 2;
         addEntite(new Mur(this), 3, 6);
-        addEntite(new Mur(this), 14, 8);
-        addEntite(new Mur(this), 14, 7);
-        addEntite(new Mur(this), 4, SIZE_Y-2);
+        
+        
+        addEntite(new Mur(this), 4, SIZE_Y-2);*/
     }
 
     private void addEntite(Entite e, int x, int y) {

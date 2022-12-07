@@ -33,7 +33,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
     
     private int sizeX; // taille de la grille affichée
     private int sizeY;
-    private int screenX = 900;
+    private int screenX = 1400;
     private int screenY = 500;
 
     // icones affichées dans la grille
