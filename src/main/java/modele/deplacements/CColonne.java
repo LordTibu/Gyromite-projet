@@ -37,7 +37,6 @@ public class CColonne extends RealisateurDeDeplacement {
                         if(e != null && e.peutEtreEcrase()){
                             if(((EntiteDynamique)e).regarderDansLaDirection(Direction.bas) instanceof Mur){
                                 e.matar();
-                                System.out.println("intento de homicidio");
                             }
                         }
                         ret = lstEntitesDynamiques.get(y).avancerDirectionChoisie(Direction.bas);
@@ -86,5 +85,12 @@ public class CColonne extends RealisateurDeDeplacement {
     
     public void resetColonne(){
         triggeredDown = false;
+    }
+    
+    @Override
+    public void reset(){
+        lstEntitesDynamiques.clear();
+        colTaille.clear();
+        tilesMoved.clear();
     }
 }

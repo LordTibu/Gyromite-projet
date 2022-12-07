@@ -70,6 +70,14 @@ public class VueControleurGyromite extends JFrame implements Observer {
         placerLesComposantsGraphiques();
         ajouterEcouteurClavier();
     }
+    
+    public void reset(){
+        for(JLabel[] E : tabJLabel){
+            for(JLabel e : E){
+                e = null;
+            }
+        }
+    }
 
     private void ajouterEcouteurClavier() {
         addKeyListener(new KeyAdapter() { // new KeyAdapter() { ... } est une instance de classe anonyme, il s'agit d'un objet qui correspond au controleur dans MVC
@@ -98,7 +106,7 @@ public class VueControleurGyromite extends JFrame implements Observer {
                                             typeHero = 3;
                                             break;
                     case KeyEvent.VK_R : CColonne.getInstance().triggerColonne(); break; 
-                    
+                    case KeyEvent.VK_F : jeu.reset(); reset(); break;
                 }
                 
             }

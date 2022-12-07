@@ -45,7 +45,6 @@ public class IA extends RealisateurDeDeplacement {
                 }
                 break;
         }
-        System.out.println("Unvalid Pathing");
         return false;
     }
     
@@ -55,6 +54,10 @@ public class IA extends RealisateurDeDeplacement {
         ArrayList<Direction> tabDir = null;
         int r = 0;
         for(int i = 0; i < lstEntitesDynamiques.size(); i++){
+            if(lstEntitesDynamiques.get(i).regarderDansLaDirection(directionCourante.get(i)) instanceof Heros){
+                lstEntitesDynamiques.get(i).regarderDansLaDirection(directionCourante.get(i)).matar();
+                //Je sais que c'est horrible à lire mais c'est encore plus horrible à ecrire
+            }
             if(isValidDir(lstEntitesDynamiques.get(i), directionCourante.get(i))){
                 return lstEntitesDynamiques.get(i).avancerDirectionChoisie(directionCourante.get(i));
             }
@@ -77,5 +80,11 @@ public class IA extends RealisateurDeDeplacement {
     public void addEntiteDynamique(EntiteDynamique ed){
         lstEntitesDynamiques.add(ed);
         directionCourante.add(Direction.gauche);
+    }
+    
+    @Override
+    public void reset(){
+        lstEntitesDynamiques.clear();
+        directionCourante.clear();
     }
 }
