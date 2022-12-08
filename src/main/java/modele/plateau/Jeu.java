@@ -68,7 +68,7 @@ public class Jeu {
         addEntite(hector, 2, 2);
         
         Rabano r = new Rabano(this);
-        //addEntite(r,3,5);
+        addEntite(r,3,2);
 
         Gravite g = new Gravite();
         g.addEntiteDynamique(hector);
@@ -83,9 +83,13 @@ public class Jeu {
         ia = new IA();
         ia.addEntiteDynamique(gustavo);
         
-        Bot gustavo1 = new Bot(this);
-        addEntite(gustavo1,20,8);
-        ia.addEntiteDynamique(gustavo1);
+        /*Bot gustavo1 = new Bot(this);
+        addEntite(gustavo1,20,4);
+        ia.addEntiteDynamique(gustavo1);*/
+        
+        Bot gustavo2 = new Bot(this);
+        addEntite(gustavo2,20,8);
+        ia.addEntiteDynamique(gustavo2);
         ordonnanceur.add(ia);
         
         
@@ -95,11 +99,12 @@ public class Jeu {
             CColonne.getInstance().addEntiteDynamique(e);
         }
         CColonne.getInstance().addCol(3);
-        addEntite(new Mur(this), 10, 6);
+        //addEntite(new Mur(this), 10, 6);
         
-        addEntite(new Bombe(this), 26, 2);
+        addEntite(new Bombe(this), 26, 1);
         addEntite(new Bombe(this), 2, 7);
         addEntite(new Bombe(this), 28, 7);
+        cmptBombes = 3;
         for (int y =6; y > 2; y--) {
             Colonne e = new Colonne(this);
             addEntite(e, 26, y);
@@ -113,6 +118,8 @@ public class Jeu {
             addEntite(new Corde(this), 15, y );
         }
         addEntite(new Mur(this), 16, 8);
+        addEntite(new Mur(this), 14, 4);
+        addEntite(new Corde(this), 13, 4);
         //addEntite(new Corde(this),3,8);
        
         
@@ -142,15 +149,6 @@ public class Jeu {
         for (int xx =27 ;xx < 30;xx++){
             addEntite(new Mur(this), xx, 5);
         }
-        /*
-        addEntite(new Mur(this), 2, 6);
-        addEntite(new Bombe(this), 4, 7);
-        addEntite(new Bombe(this), 1, 7);
-        cmptBombes = 2;
-        addEntite(new Mur(this), 3, 6);
-        
-        
-        addEntite(new Mur(this), 4, SIZE_Y-2);*/
     }
 
     private void addEntite(Entite e, int x, int y) {
@@ -205,7 +203,7 @@ public class Jeu {
                 else if(objetALaPosition(pCible) instanceof Bombe){ //Choca con bomba
                     if (cmptDeplV.get(e) == null) {
                             cmptDeplV.put(e, 1);
-                            cmptBombes ++;
+                            cmptBombes --;
                             retour = true;
                             if(cmptBombes == 0) System.out.println("Victory!!!!!");
                         }
@@ -242,7 +240,7 @@ public class Jeu {
                 else if(objetALaPosition(pCible) instanceof Bombe){ //Choca con bomba
                     if (cmptDeplH.get(e) == null) {
                         cmptDeplH.put(e, 1);
-                        cmptBombes ++;
+                        cmptBombes --;
                         retour = true;
                         if(cmptBombes == 0) System.out.println("Victory!!!!!");
                     }

@@ -32,6 +32,8 @@ public class CColonne extends RealisateurDeDeplacement {
         if(triggeredDown){ // We go down
             for(Integer x = 0; x < colTaille.size(); x++){
                 if(tilesMoved.get(x) > 0){
+                    ret = false;
+                    System.out.println(("in colonne: " + x + " ") + tilesMoved.get(x));
                     for(Integer y = sommeTailles; y < sommeTailles + colTaille.get(x); y++){
                         Entite e = lstEntitesDynamiques.get(y).regarderDansLaDirection(Direction.bas);
                         if(e != null && e.peutEtreEcrase()){
@@ -41,11 +43,11 @@ public class CColonne extends RealisateurDeDeplacement {
                         }
                         ret = lstEntitesDynamiques.get(y).avancerDirectionChoisie(Direction.bas);
                     }
-                    if(ret){ // If not blocked by any walls
-                        sommeTailles += colTaille.get(x);
+                    if(ret){ // If colonne moved
                         tilesMoved.set(x, tilesMoved.get(x) - 1);
                     }
                 }
+                sommeTailles += colTaille.get(x);
             }
         }
         else{ // We go up

@@ -32,7 +32,9 @@ public class IA extends RealisateurDeDeplacement {
             case gauche:
                 tmp = e.regarderDansLaDirection(d);
                 if(tmp != null){
-                    if(tmp instanceof Mur || tmp instanceof Bot || tmp instanceof Colonne) return false;
+                    if(tmp instanceof Mur || tmp instanceof Bot || tmp instanceof Colonne){
+                        return false;
+                    }
                 } //Colission avec Mur
                 tmp = e.regarderDansLaDirection(Direction.bas);
                 if(tmp != null && tmp.peutServirDeSupport()){
@@ -54,6 +56,7 @@ public class IA extends RealisateurDeDeplacement {
     @Override
     protected boolean realiserDeplacement() {
         int rand_int = 0;
+        boolean ret = false;
         ArrayList<Direction> tabDir = null;
         int r = 0;
         for(int i = 0; i < lstEntitesDynamiques.size(); i++){
@@ -64,7 +67,7 @@ public class IA extends RealisateurDeDeplacement {
                     //Je sais que c'est horrible à lire mais c'est encore plus horrible à ecrire
                 }
                 if(isValidDir(lstEntitesDynamiques.get(i), directionCourante.get(i))){
-                    return lstEntitesDynamiques.get(i).avancerDirectionChoisie(directionCourante.get(i));
+                    ret = lstEntitesDynamiques.get(i).avancerDirectionChoisie(directionCourante.get(i));
                     //Si la direction courante du bot est valide (pas d'obstacle etc..) il pursuit son chemin
                 }
                 else{
@@ -72,7 +75,7 @@ public class IA extends RealisateurDeDeplacement {
                     if(tabDir.isEmpty()) return false;
                     rand_int = getRandInt(tabDir.size());
                     directionCourante.set(i, tabDir.get(rand_int));
-                    return lstEntitesDynamiques.get(i).avancerDirectionChoisie(tabDir.get(rand_int));
+                    ret = lstEntitesDynamiques.get(i).avancerDirectionChoisie(tabDir.get(rand_int));
                     //Sinon on calcule les directions possibles depuis sa position courante et on choisi une aleatoirement
                 }
             }
@@ -82,7 +85,7 @@ public class IA extends RealisateurDeDeplacement {
                 banano++;
             }
         }
-        return false; 
+        return ret; 
     }
     
     int getRandInt(int range){
