@@ -14,10 +14,12 @@ les ennemis, les Smicks. L’objectif est donc de récupérer toutes les
 bombes, en évitant les ennemis, tout en manipulant les piliers pour créer
 des chemins si nécessaire.
 
+## Execution
+Lance le programme depuis Lifapoo.jar
 
 ## Authors 
 Nicolas Patino
 Juan Camilo Lenis
 
 ## Project status
-In progress
+In complete
