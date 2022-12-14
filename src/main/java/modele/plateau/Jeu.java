@@ -92,6 +92,11 @@ public class Jeu {
         ia.addEntiteDynamique(gustavo2);
         ordonnanceur.add(ia);
         
+        g.addEntiteDynamique(hector);
+        g.addEntiteDynamique(gustavo);
+        g.addEntiteDynamique(gustavo2);
+        ordonnanceur.add(g);
+        
         
         for (int y =3; y > 0; y--) {
             Colonne e = new Colonne(this);

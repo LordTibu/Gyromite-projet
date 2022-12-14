@@ -16,6 +16,6 @@ public class Lifapoo {
         
         vc.setVisible(true);
         
-        jeu.start(17);
+        jeu.start(200);
     }
 }

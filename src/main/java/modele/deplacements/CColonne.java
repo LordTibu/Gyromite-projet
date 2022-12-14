@@ -33,7 +33,6 @@ public class CColonne extends RealisateurDeDeplacement {
             for(Integer x = 0; x < colTaille.size(); x++){
                 if(tilesMoved.get(x) > 0){
                     ret = false;
-                    System.out.println(("in colonne: " + x + " ") + tilesMoved.get(x));
                     for(Integer y = sommeTailles; y < sommeTailles + colTaille.get(x); y++){
                         Entite e = lstEntitesDynamiques.get(y).regarderDansLaDirection(Direction.bas);
                         if(e != null && e.peutEtreEcrase()){
