@@ -19,8 +19,12 @@ les ennemis, les Smicks. L’objectif est donc de récupérer toutes les
 bombes, en évitant les ennemis, tout en manipulant les piliers pour créer
 des chemins si nécessaire.
 
+## Rendu final
+![gyro](https://github.com/LordTibu/Gyromite-projet/blob/main/Images/gyro.png?raw=true)
+
 ## Authors 
 Nicolas Patino
 Juan Camilo Lenis
+
 
 
