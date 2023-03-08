@@ -1,12 +1,10 @@
 # Gyromite
 
-### Comment éxecuter le programme
+### Execution
 
 ```
-$ git clone 
-$ cd roborally/Src
-$ make
-$ ./bin/test_board
+$ git clone https://github.com/LordTibu/Gyromite-projet.git
+$ ./Lifapoo.jar
 ```
 
 ## Description du jeu
@@ -20,9 +18,6 @@ joueur appuie sur une touche spécifique. Enfin, le professeur doit éviter
 les ennemis, les Smicks. L’objectif est donc de récupérer toutes les
 bombes, en évitant les ennemis, tout en manipulant les piliers pour créer
 des chemins si nécessaire.
-
-## Execution
-Lance le programme depuis Lifapoo.jar
 
 ## Authors 
 Nicolas Patino
