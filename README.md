@@ -1,6 +1,13 @@
 # Gyromite
 
+### Comment éxecuter le programme
 
+```
+$ git clone 
+$ cd roborally/Src
+$ make
+$ ./bin/test_board
+```
 
 ## Description du jeu
 
@@ -21,5 +28,4 @@ Lance le programme depuis Lifapoo.jar
 Nicolas Patino
 Juan Camilo Lenis
 
-## Project status
-Complete
+
