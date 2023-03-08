@@ -22,4 +22,4 @@ Nicolas Patino
 Juan Camilo Lenis
 
 ## Project status
-In complete
+Complete
