@@ -7,19 +7,19 @@ $ git clone https://github.com/LordTibu/Gyromite-projet.git
 $ ./Lifapoo.jar
 ```
 
-## Description du jeu
+## Game description
 
-Vous contrôlez le Prof. Hector qui se déplace pour ramasser les bombes
-dans son laboratoire, vu en 2D de côté. Le laboratoire est composé d’un
-ensemble de niveaux. Le scientifique peut se déplacer à gauche, à droite,
-et grimper ou descendre à l’aide de cordes. Un niveau peut contenir des
-piliers (bleus et rouges) qui peuvent monter ou descendre lorsque le
-joueur appuie sur une touche spécifique. Enfin, le professeur doit éviter
-les ennemis, les Smicks. L’objectif est donc de récupérer toutes les
-bombes, en évitant les ennemis, tout en manipulant les piliers pour créer
-des chemins si nécessaire.
+You control Prof. Hector as he moves around collecting bombs
+in his laboratory, seen from the side in 2D. The laboratory is made up of a
+of levels. The scientist can move left, right,
+and climb up or down using ropes. A level may contain
+pillars (blue and red) that can be raised or lowered when the
+player presses a specific key. Finally, the teacher must avoid
+the enemies, the Smicks. The aim is to collect all the bombs
+bombs, avoiding enemies while manipulating the pillars to create
+paths if necessary.
 
-## Rendu final
+## Final render
 ![gyro](https://github.com/LordTibu/Gyromite-projet/blob/main/Images/gyro.png?raw=true)
 
 ## Authors 
